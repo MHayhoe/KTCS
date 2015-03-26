@@ -38,7 +38,7 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="KTCS_home.php">Home</a></li>
+            <li class="active"><a href="KTCS_member_home.php">Home</a></li>
             <li><a href="KTCS_reserve.php">Reserve a Car</a></li>
             <li><a href="KTCS_contact.php">Contact</a></li>
           </ul>
@@ -53,31 +53,9 @@
     <div class="container">
       <!-- Example row of columns -->
       <div class="row">
-          <div class="col-md-4">
-          <h2>Return Vehicle</h2>
-          <p>Click here to return a car.</p>
-          <p><a class="btn btn-default" href="KTCS_return.php" role="button">View details &raquo;</a></p>
-       </div>
-        <div class="col-md-4">
-          <h2>See Rental History</h2>
-          <p>Click here to see your rental history.</p>
-          <p><a class="btn btn-default" href="KTCS_history.php" role="button">View details &raquo;</a></p>
-        </div>
-        <div class="col-md-4">
-          <h2>See Locations</h2>
-          <p>Click here to see all of our locations.</p>
-          <p><a class="btn btn-default" href="KTCS_locations.php" role="button">View details &raquo;</a></p>
-        </div>
-        <div class="col-md-4">
-          <h2>Make a Comment</h2>
-          <p>Click here to make a comment.</p>
-          <p><a class="btn btn-default" href="KTCS_comment.php" role="button">View details &raquo;</a></p>
-        </div>
-        <div class="col-md-4">
-          <h2>View Available Cars</h2>
-          <p>Click here to see all the available cars.</p>
-          <p><a class="btn btn-default" href="KTCS_available.php" role="button">View details &raquo;</a></p>
-        </div>
+          <h2>Heading</h2>
+          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+          <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
       </div>
 
       <hr>
