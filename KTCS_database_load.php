@@ -43,11 +43,12 @@
 
    mysqli_query($cxn,"CREATE TABLE Member (
 				  MIN			INTEGER		AUTO_INCREMENT,
+				  Password		VARCHAR(20) NOT NULL,
 				  FName			VARCHAR(20)	NOT NULL,
 				  LName			VARCHAR(20)	NOT NULL,
                   Mem_Address	VARCHAR(50),
                   Phone			VARCHAR(12),
-                  Email			VARCHAR(50),
+                  Email			VARCHAR(50) NOT NULL,
                   License_No	VARCHAR(20)	NOT NULL,
                   CC_No			VARCHAR(20),
                   CC_Expiry		DATE,
