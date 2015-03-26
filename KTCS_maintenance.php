@@ -38,9 +38,7 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="KTCS_home.php">Home</a></li>
-            <li><a href="KTCS_reserve.php">Reserve a Car</a></li>
-            <li><a href="KTCS_contact.php">Contact</a></li>
+            <li class="active"><a href="KTCS_admin.php">Home</a></li>
           </ul>
         </div><!--/.navbar-collapse -->
       </div>
