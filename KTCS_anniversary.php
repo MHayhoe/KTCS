@@ -52,7 +52,7 @@
       <!-- Example row of columns -->
       
       <div class="row">
-          <h2>Cars Requiring Maintenance</h2>
+          <h2>Today's Annual Fee Anniversaries</h2>
           <!-- <p>Display query results here</p>
           <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p> -->
       </div>
@@ -77,23 +77,32 @@
 
 		 $result = mysqli_query($cxn, $query);
 		 
-		 echo '<table cellpadding="5" cellspacing="5" class="db-table" border="1">';
-		$column = $result->fetch_fields();
+		 if(empty($result->fetch_assoc()))
+		 {
+		 	echo 'No anniversaries today.';
+		 }
+		 else
+		 {
+		 	$result = mysqli_query($cxn, $query);
+		 
+			echo '<table cellpadding="5" cellspacing="5" class="db-table" border="1">';
+			$column = $result->fetch_fields();
 	
-		echo '<tr>';
-		foreach ($column as $col) {
-			echo '<th>'.$col->name.'</th>';
-		}
-	
-		echo '</tr>';
-		while($row2 = $result->fetch_row() ) {
 			echo '<tr>';
-			foreach($row2 as $key=>$value) {
-				echo '<td>',$value,'</td>';
+			foreach ($column as $col) {
+				echo '<th>'.$col->name.'</th>';
 			}
+	
 			echo '</tr>';
-		}
-		echo '</table><br />';
+			while($row2 = $result->fetch_row() ) {
+				echo '<tr>';
+				foreach($row2 as $key=>$value) {
+					echo '<td>',$value,'</td>';
+				}
+				echo '</tr>';
+			}
+			echo '</table><br />';
+		 }
 		 		 
 		 mysqli_close($cxn); 
 
