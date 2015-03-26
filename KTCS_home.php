@@ -42,12 +42,6 @@
             <li><a href="KTCS_reserve.php">Reserve a Car</a></li>
             <li><a href="KTCS_contact.php">Contact</a></li>
           </ul>
-          <form class="navbar-form navbar-right" action="KTCS_login.php">
-            <button type="submit" class="btn btn-success">Sign in</button>
-          </form>
-          <form class="navbar-form navbar-right" action="KTCS_signup.php">
-            <button type="submit" class="btn btn-success">Sign up</button>
-          </form>
         </div><!--/.navbar-collapse -->
       </div>
     </nav>
@@ -59,7 +53,7 @@
     <div class="container">
       <!-- Example row of columns -->
       <div class="row">
-        <div class="col-md-4">
+          <div class="col-md-4">
           <h2>Return Vehicle</h2>
           <p>Click here to return a car.</p>
           <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
