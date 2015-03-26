@@ -52,7 +52,14 @@
 
     <div class="container">
       <!-- Example row of columns -->
-      <?php
+      
+      <div class="row">
+          <h2>Cars Requiring Maintenance</h2>
+          <!-- <p>Display query results here</p>
+          <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p> -->
+      </div>
+	
+		<?php
 		 $host = "localhost";
 		 $user = "admin";
 		 $password = "password";
@@ -61,50 +68,38 @@
 		 $cxn = mysqli_connect($host,$user,$password, $database);
 		 // Check connection
 		 if (mysqli_connect_errno())
-		  {
-		  echo "Failed to connect to MySQL: " . mysqli_connect_error();
-		  die();
-		  } 
+		 {
+		 	echo "Failed to connect to MySQL: " . mysqli_connect_error();
+		  	die();
+		 } 
+			
+		 $query = "SELECT *
+				   FROM Car
+				   WHERE (Last_Odom - Maint_Odom >= 5000);";
 
-			$query = "SELECT Password, MIN
-					  FROM Member
-					  WHERE Email = '" . $_GET["inputEmail"] . "' limit 1;";
+		 $result = mysqli_query($cxn, $query);
+		 
+		 echo '<table cellpadding="5" cellspacing="5" class="db-table" border="1">';
+		$column = $result->fetch_fields();
+	
+		echo '<tr>';
+		foreach ($column as $col) {
+			echo '<th>'.$col->name.'</th>';
+		}
+	
+		echo '</tr>';
+		while($row2 = $result->fetch_row() ) {
+			echo '<tr>';
+			foreach($row2 as $key=>$value) {
+				echo '<td>',$value,'</td>';
+			}
+			echo '</tr>';
+		}
+		echo '</table><br />';
+		 		 
+		 mysqli_close($cxn); 
 
-				$result = mysqli_query($cxn, $query);
-				$value = $result->fetch_row();
-				
-				if(!empty($_GET["inputPassword"]) && $value["Password"] == $_GET["inputPassword"])
-				{	
-					if($_GET["inputEmail"] == "admin") //admin login
-					{
-						$url = 'KTCS_admin.php';
-					}
-					else //regular login
-					{			
-						$url = 'KTCS_home.php?MIN=' . $value[1];	
-					}	
-				}
-				else
-				{
-					$url = 'KTCS_login.php?attempt=1';			
-				}
-				//Go to the specified page
-				ob_start();
-				while(ob_get_status())
-				{
-					ob_end_clean();
-				}
-				header("Location: $url");
-
-		  mysqli_close($cxn); 
 		?>
-      
-      <div class="row">
-          <h2>Heading</h2>
-          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-          <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
-      </div>
-
       <hr>
 
       <footer>

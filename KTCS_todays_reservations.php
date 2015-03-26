@@ -52,53 +52,6 @@
 
     <div class="container">
       <!-- Example row of columns -->
-      <?php
-		 $host = "localhost";
-		 $user = "admin";
-		 $password = "password";
-		 $database = "KTCS";
-
-		 $cxn = mysqli_connect($host,$user,$password, $database);
-		 // Check connection
-		 if (mysqli_connect_errno())
-		  {
-		  echo "Failed to connect to MySQL: " . mysqli_connect_error();
-		  die();
-		  } 
-
-			$query = "SELECT Password, MIN
-					  FROM Member
-					  WHERE Email = '" . $_GET["inputEmail"] . "' limit 1;";
-
-				$result = mysqli_query($cxn, $query);
-				$value = $result->fetch_row();
-				
-				if(!empty($_GET["inputPassword"]) && $value["Password"] == $_GET["inputPassword"])
-				{	
-					if($_GET["inputEmail"] == "admin") //admin login
-					{
-						$url = 'KTCS_admin.php';
-					}
-					else //regular login
-					{			
-						$url = 'KTCS_home.php?MIN=' . $value[1];	
-					}	
-				}
-				else
-				{
-					$url = 'KTCS_login.php?attempt=1';			
-				}
-				//Go to the specified page
-				ob_start();
-				while(ob_get_status())
-				{
-					ob_end_clean();
-				}
-				header("Location: $url");
-
-		  mysqli_close($cxn); 
-		?>
-      
       <div class="row">
           <h2>Heading</h2>
           <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
