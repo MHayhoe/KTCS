@@ -73,7 +73,7 @@
 				$result = mysqli_query($cxn, $query);
 				$value = $result->fetch_row();
 				
-				if(!empty($_GET["inputPassword"]) && $value[0] == $_GET["inputPassword"])
+				if(!empty($_GET["inputPassword"]) && $value[0] == $_GET["inputPassword"] && ø)
 				{				
 					$url = 'KTCS_home.php?MIN=' . $value[1];			
 				}
