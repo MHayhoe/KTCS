@@ -37,14 +37,11 @@
           <a class="navbar-brand" href="#">KTCS</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
-          <form class="navbar-form navbar-right">
-            <div class="form-group">
-              <input type="text" placeholder="Email" class="form-control">
-            </div>
-            <div class="form-group">
-              <input type="password" placeholder="Password" class="form-control">
-            </div>
+          <form class="navbar-form navbar-right" action="KTCS_login.php">
             <button type="submit" class="btn btn-success">Sign in</button>
+          </form>
+          <form class="navbar-form navbar-right" action="KTCS_signup.php">
+            <button type="submit" class="btn btn-success">Sign up</button>
           </form>
         </div><!--/.navbar-collapse -->
       </div>
