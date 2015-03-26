@@ -38,7 +38,7 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="KTCS_member_home.php">Home</a></li>
+            <li class="active"><a href="KTCS_home.php">Home</a></li>
             <li><a href="KTCS_reserve.php">Reserve a Car</a></li>
             <li><a href="KTCS_contact.php">Contact</a></li>
           </ul>
@@ -52,9 +52,34 @@
 
     <div class="container">
       <!-- Example row of columns -->
+      
+      <?php
+		 $host = "localhost";
+		 $user = "admin";
+		 $password = "password";
+		 $database = "KTCS";
+
+		 $cxn = mysqli_connect($host,$user,$password, $database);
+		 // Check connection
+		 if (mysqli_connect_errno())
+		 {
+		 	echo "Failed to connect to MySQL: " . mysqli_connect_error();
+		  	die();
+		 } 
+			
+		 $query = "SELECT *
+				   FROM Member;";
+
+		 $result = mysqli_query($cxn, $query);
+
+		 echo "<br><h4>Query Executed!</h4>";
+		 mysqli_close($cxn); 
+
+		?>
+      
       <div class="row">
-          <h2>Heading</h2>
-          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+          <h2>Locations</h2>
+          <p>Display query results here</p>
           <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
       </div>
 
