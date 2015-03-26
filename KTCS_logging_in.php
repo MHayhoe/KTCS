@@ -68,15 +68,21 @@
 
 			$query = "SELECT Password
 					  FROM Member
-					  WHERE Email = " . $_GET["Email"] . ";";
+					  WHERE Email = '" . $_GET["inputEmail"] . "' limit 1;";
 
 				$result = mysqli_query($cxn, $query);
+				$value = $result->fetch_row();
+				
+				if($value[0] == $_GET["inputPassword"])
+				{
+					echo 'Success!';
+				}
+				else
+				{
+					echo 'Failure :(';
+				}
 
-				echo "<br><h4>Donor added.</h4>";
-			}
 		  mysqli_close($cxn); 
-
-
 		?>
       
       <div class="row">
