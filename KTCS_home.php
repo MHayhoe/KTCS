@@ -38,9 +38,9 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="KTCS_home.php">Home</a></li>
-            <li><a href="KTCS_reserve.php">Reserve a Car</a></li>
-            <li><a href="KTCS_contact.php">Contact</a></li>
+            <li class="active"><a href="KTCS_home.php?MIN=<?=$_GET["MIN"];?>">Home</a></li>
+            <li><a href="KTCS_reserve.php?MIN=<?=$_GET["MIN"];?>">Reserve a Car</a></li>
+            <li><a href="KTCS_contact.php?MIN=<?=$_GET["MIN"];?>">Contact</a></li>
           </ul>
         </div><!--/.navbar-collapse -->
       </div>
@@ -56,27 +56,27 @@
           <div class="col-md-4">
           <h2>Return Vehicle</h2>
           <p>Click here to return a car.</p>
-          <p><a class="btn btn-default" href="KTCS_return.php" role="button">View details &raquo;</a></p>
+          <p><a class="btn btn-default" href="KTCS_return.php?MIN=<?=$_GET["MIN"];?>" role="button">View details &raquo;</a></p>
        </div>
         <div class="col-md-4">
           <h2>See Rental History</h2>
           <p>Click here to see your rental history.</p>
-          <p><a class="btn btn-default" href="KTCS_history.php" role="button">View details &raquo;</a></p>
+          <p><a class="btn btn-default" href="KTCS_history.php?MIN=<?=$_GET["MIN"];?>" role="button">View details &raquo;</a></p>
         </div>
         <div class="col-md-4">
           <h2>See Locations</h2>
           <p>Click here to see all of our locations.</p>
-          <p><a class="btn btn-default" href="KTCS_locations.php" role="button">View details &raquo;</a></p>
+          <p><a class="btn btn-default" href="KTCS_locations.php?MIN=<?=$_GET["MIN"];?>" role="button">View details &raquo;</a></p>
         </div>
         <div class="col-md-4">
           <h2>Make a Comment</h2>
           <p>Click here to make a comment.</p>
-          <p><a class="btn btn-default" href="KTCS_comment.php" role="button">View details &raquo;</a></p>
+          <p><a class="btn btn-default" href="KTCS_comment.php?MIN=<?=$_GET["MIN"];?>" role="button">View details &raquo;</a></p>
         </div>
         <div class="col-md-4">
           <h2>View Available Cars</h2>
           <p>Click here to see all the available cars.</p>
-          <p><a class="btn btn-default" href="KTCS_available.php" role="button">View details &raquo;</a></p>
+          <p><a class="btn btn-default" href="KTCS_available.php?MIN=<?=$_GET["MIN"];?>" role="button">View details &raquo;</a></p>
         </div>
       </div>
 

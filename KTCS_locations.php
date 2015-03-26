@@ -38,9 +38,9 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="KTCS_home.php">Home</a></li>
-            <li><a href="KTCS_reserve.php">Reserve a Car</a></li>
-            <li><a href="KTCS_contact.php">Contact</a></li>
+            <li class="active"><a href="KTCS_home.php?MIN=<?=$_GET["MIN"];?>">Home</a></li>
+            <li><a href="KTCS_reserve.php?MIN=<?=$_GET["MIN"];?>">Reserve a Car</a></li>
+            <li><a href="KTCS_contact.php?MIN=<?=$_GET["MIN"];?>">Contact</a></li>
           </ul>
         </div><!--/.navbar-collapse -->
       </div>
@@ -78,14 +78,32 @@
 
 		 $result = mysqli_query($cxn, $query);
 		 
-		 if ($result->num_rows > 0) 
-		 {
-    		// output data of each row
-    		while($row = $result->fetch_assoc()) 
-    		{
-        		echo "Address: " . $row["Address"]. "<br>";
-    		}
-		 }
+		echo '<table cellpadding="5" cellspacing="5" class="db-table" border="1">';
+		$column = $result->fetch_fields();
+
+		echo '<tr>';
+		foreach ($column as $col) {
+			echo '<th>'.$col->name.'</th>';
+		}
+
+		echo '</tr>';
+		while($row2 = $result->fetch_row() ) {
+			echo '<tr>';
+			foreach($row2 as $key=>$value) {
+				echo '<td>',$value,'</td>';
+			}
+			echo '</tr>';
+		}
+		echo '</table><br />';
+		 
+// 		 if ($result->num_rows > 0) 
+// 		 {
+//     		// output data of each row
+//     		while($row = $result->fetch_assoc()) 
+//     		{
+//         		echo "Address: " . $row["Address"]. "<br>";
+//     		}
+// 		 }
 
 		 //echo "<br><h4>Query Executed!</h4>";
 		 		 
