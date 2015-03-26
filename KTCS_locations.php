@@ -53,7 +53,13 @@
     <div class="container">
       <!-- Example row of columns -->
       
-      <?php
+      <div class="row">
+          <h2>Locations</h2>
+          <!-- <p>Display query results here</p>
+          <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p> -->
+      </div>
+	
+		<?php
 		 $host = "localhost";
 		 $user = "admin";
 		 $password = "password";
@@ -67,22 +73,25 @@
 		  	die();
 		 } 
 			
-		 $query = "SELECT *
-				   FROM Member;";
+		 $query = "SELECT Address
+				   FROM Location;";
 
 		 $result = mysqli_query($cxn, $query);
+		 
+		 if ($result->num_rows > 0) 
+		 {
+    		// output data of each row
+    		while($row = $result->fetch_assoc()) 
+    		{
+        		echo "Address: " . $row["Address"]. "<br>";
+    		}
+		 }
 
-		 echo "<br><h4>Query Executed!</h4>";
+		 //echo "<br><h4>Query Executed!</h4>";
+		 		 
 		 mysqli_close($cxn); 
 
 		?>
-      
-      <div class="row">
-          <h2>Locations</h2>
-          <p>Display query results here</p>
-          <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
-      </div>
-
       <hr>
 
       <footer>
