@@ -75,7 +75,7 @@
 			
 		 $query = "SELECT Start_Date, Duration, Start_Odom, End_Odom, Usage_Fee, Make, Model
 				   FROM Rental NATURAL JOIN Car
-				   WHERE MIN = 1;";
+				   WHERE MIN =" . $_GET['MIN']. ";";
 
 		 $result = mysqli_query($cxn, $query);
 		 
