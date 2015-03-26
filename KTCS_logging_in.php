@@ -66,21 +66,28 @@
 		  die();
 		  } 
 
-			$query = "SELECT Password
+			$query = "SELECT Password, MIN
 					  FROM Member
 					  WHERE Email = '" . $_GET["inputEmail"] . "' limit 1;";
 
 				$result = mysqli_query($cxn, $query);
 				$value = $result->fetch_row();
 				
-				if($value[0] == $_GET["inputPassword"])
-				{
-					echo 'Success!';
+				if(!empty($_GET["inputPassword"]) && $value[0] == $_GET["inputPassword"])
+				{				
+					$url = 'KTCS_home.php?MIN=' . $value[1];			
 				}
 				else
 				{
-					echo 'Failure :(';
+					$url = 'KTCS_login.php?attempt=1';			
 				}
+				//Go to the specified page
+				ob_start();
+				while(ob_get_status())
+				{
+					ob_end_clean();
+				}
+				header("Location: $url");
 
 		  mysqli_close($cxn); 
 		?>

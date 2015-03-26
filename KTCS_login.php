@@ -49,6 +49,12 @@
 
       <form class="form-signin" method="get" action="KTCS_logging_in.php">
         <h2 class="form-signin-heading">Please sign in</h2>
+        <?
+        if(!empty($_GET["attempt"]))
+        {
+        	echo '<p>Incorrect email or password. Please try again.</p>';
+        }
+        ?>
         <label for="inputEmail" class="sr-only">Email address</label>
         <input type="email" id="inputEmail" name="inputEmail" class="form-control" placeholder="Email address" required autofocus>
         <label for="inputPassword" class="sr-only">Password</label>
