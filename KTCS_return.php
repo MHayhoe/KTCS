@@ -66,13 +66,14 @@
 		  } 
 
 			$query = "UPDATE Rental AS r, Car AS c
-					  SET r.Duration = TIMESTAMPDIFF(HOUR, r.Start_Date, NOW())," . 
-					  	 "r.End_Odom = " . $_GET["iEnd_Odom"] . ", c.Status = 'a'," . 
-					  	 "c.Last_Odom = " . $_GET["iEnd_Odom"] . ", c.LAst_Gas = " .
+					  SET r.Duration = TIMESTAMPDIFF(HOUR, r.Start_Date, NOW()), " . 
+					  	 "r.End_Odom = " . $_GET["iLast_Odom"] . ", c.Status = 'a', " . 
+					  	 "c.Last_Odom = " . $_GET["iLast_Odom"] . ", c.Last_Gas = " .
 					  	 $_GET["iLast_Gas"] .
-					  "WHERE c.VIN = " . $_GET["iVIN"] . " AND r.Duration = 0;";
+					  " WHERE c.VIN = " . $_GET["iVIN"] . " AND r.Duration = 0;";
 
 			$result = mysqli_query($cxn, $query);
+			echo $query;
 			
 			if($result)
 			{			
