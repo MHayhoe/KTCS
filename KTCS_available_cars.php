@@ -38,9 +38,7 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="KTCS_home.php">Home</a></li>
-            <li><a href="KTCS_reserve.php">Reserve a Car</a></li>
-            <li><a href="KTCS_contact.php">Contact</a></li>
+            <li class="active"><a href="KTCS_admin.php">Home</a></li>
           </ul>
         </div><!--/.navbar-collapse -->
       </div>
@@ -65,53 +63,73 @@
 		 {
 		 	echo "Failed to connect to MySQL: " . mysqli_connect_error();
 		  	die();
-		 } 
+		 }
 		 
 		 if(empty($_GET["iDate"]))
 		 {
-		 	$date = DATE_FORMAT(NOW(),"%Y-%m-%d");
+		 	$date = date('Y-m-d', time());
 		 }
 		 else
 		 {
 		 	$date = $_GET["iDate"];
 		 }
 		 
-		 if() //NO AVAILABLE CARS ON THIS DATE
+		 if(empty($_GET["iLNo"]))
 		 {
-		 echo "<h2>Available Cars on " . DATE_FORMAT($date, "%M %e, %Y") . "</h2>";
-
-			$query = "SELECT Start_Date, Duration, Start_Odom, End_Odom, Usage_Fee, Make, Model
-					  FROM Rental NATURAL JOIN Car
-					  WHERE VIN = " . $_GET["iVIN"] . ";";
-					  
-		 	$result = mysqli_query($cxn, $query);
-
-			if(empty($result->fetch_assoc()))
+		 	//Go back to input page
+			ob_start();
+			while(ob_get_status())
 			{
-				echo "No Rental History to display.";
+				ob_end_clean();
 			}
-			else
-			{
-				$result = mysqli_query($cxn, $query);
+			$url = 'KTCS_admin.php';
+			header("Location: $url");
+		 }
+		 
+		 $query2 = "SELECT Address
+		 		   FROM Location
+		 		   WHERE LNo = " . $_GET["iLNo"] . ";";
+		 		   
+		 $result2 = mysqli_query($cxn, $query2);
+		 
+		 $address = $result2->fetch_row();
+		 
+		 echo "<h2>Available Cars</h2><h4>" . DATE_FORMAT(date_create_from_format('Y-m-d', $date), "M d, Y") . " at " . $address[0] . "</h4>";
 
-				echo '<table cellpadding="5" cellspacing="5" class="db-table" border="1">';
-				$column = $result->fetch_fields();
-	
+		$query = "SELECT VIN, Make, Model, c.Year
+				  FROM Car AS c
+				  WHERE LNo = " . $_GET["iLNo"] . " AND c.VIN NOT IN (SELECT VIN
+																	  FROM Car NATURAL JOIN Reservation AS r
+																	  WHERE (TIMESTAMPDIFF(HOUR, r.Res_Start," . $date . ") >= 0
+																	  AND TIMESTAMPDIFF(HOUR," . $date . ",r.Res_End) >= 0));";
+				  
+		$result = mysqli_query($cxn, $query);
+
+		if(empty($result->fetch_assoc()))
+		{
+			echo "No cars available.";
+		}
+		else
+		{
+			$result = mysqli_query($cxn, $query);
+
+			echo '<table cellpadding="5" cellspacing="5" class="db-table" border="1">';
+			$column = $result->fetch_fields();
+
+			echo '<tr>';
+			foreach ($column as $col) {
+				echo '<th>'.$col->name.'</th>';
+			}
+
+			echo '</tr>';
+			while($row2 = $result->fetch_row() ) {
 				echo '<tr>';
-				foreach ($column as $col) {
-					echo '<th>'.$col->name.'</th>';
+				foreach($row2 as $key=>$value) {
+					echo '<td>',$value,'</td>';
 				}
-	
 				echo '</tr>';
-				while($row2 = $result->fetch_row() ) {
-					echo '<tr>';
-					foreach($row2 as $key=>$value) {
-						echo '<td>',$value,'</td>';
-					}
-					echo '</tr>';
-				}
-				echo '</table><br />';
 			}
+			echo '</table><br />';
 		 }
 		 		 
 		 mysqli_close($cxn); 
