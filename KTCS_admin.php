@@ -101,6 +101,17 @@
           <p>Click here to respond to a member's comment.</p>
           <p><a class="btn btn-default" href="KTCS_respond_comment.php" role="button">Go &raquo;</a></p>
         </div>
+        <div class="col-md-4">
+          <h2>Convert Reservations</h2>
+          <p>Convert all reservations that have started into rentals.</p>
+          <?
+			if(!empty($_GET["convert"]))
+			{
+				echo '<p>Reservations converted.</p>';
+			}
+		  ?>
+          <p><a class="btn btn-default" href="KTCS_convert.php" role="button">Convert &raquo;</a></p>
+        </div>
       </div>
 
       <hr>
