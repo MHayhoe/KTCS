@@ -114,10 +114,10 @@
         </div>
         <div class="col-md-4">
           <h2>Available Cars</h2>
-          <p>Enter a date to view all available cars on a given date.</p>
+          <p>Enter a date to view all available cars on a given date. Leave blank for today's date.</p>
           <form method="get" action="KTCS_check_cars.php">
 			  <!--<label for="iVIN" class="sr-only">Vehicle ID</label>-->
-			  <input type="text" id="iDate" name="iDate" class="form-control" style="width:200px" placeholder="Date (Blank for Today)">
+			  <input type="text" id="iDate" name="iDate" class="form-control" style="width:200px" placeholder="yyyy-MM-dd hh:mm:ss">
 			  <input type="hidden" id="MIN" name="MIN" value="<?=$_GET["MIN"];?>">
 			  <button class="btn btn-default" style="width:200px" type="submit">Go &raquo;</button>
           </form>
