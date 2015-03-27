@@ -97,7 +97,7 @@
 				$query = $query . ",'" . $_GET["iCC_Expiry"] . "'";
 			}
 			
-			$query = $query . ",19.99,'" . date('Y-m-d', time()) . "');";
+			$query = $query . ",19.99,'" . date('m-d', time()) . "');";
 			
 			$result = mysqli_query($cxn, $query);
 			
