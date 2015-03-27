@@ -99,13 +99,14 @@
        </div>
         <div class="col-md-4">
           <h2>See Rental History</h2>
-          <p>Click here to see your rental history and your future reservations.</p>
+          <p>View your rental history and future reservations.</p>
           <p><a class="btn btn-default" href="KTCS_history.php?MIN=<?=$_GET["MIN"];?>" role="button">View &raquo;</a></p>
         </div>
         <div class="col-md-4">
           <h2>See Locations</h2>
           <p>Click here to see all of our locations.</p>
           <p><a class="btn btn-default" href="KTCS_locations.php?MIN=<?=$_GET["MIN"];?>" role="button">View &raquo;</a></p>
+          <br>
         </div>
         <div class="col-md-4">
           <h2>Make a Comment</h2>

@@ -31,12 +31,16 @@
     mysqli_query($cxn,"insert into Car values
     	 (100, 'Toyota', 'Prius', 2010, 'a', 80000, 75, '2014-11-01', 73000, 1),
     	 (423, 'Honda', 'Accord', 2015, 'u', 1200, 100, NULL, NULL, 1),
-    	 (888, 'Dodge', 'Grand Caravan', 2008, 'm', 200000, 80, '2014-01-01', 170000, 2);");
+    	 (888, 'Dodge', 'Grand Caravan', 2008, 'm', 200000, 80, '2014-01-01', 170000, 2),
+    	 (17, 'Nissan', 'Altima', 2015, 'a', 43, 100, NULL, NULL, 1),
+    	 (941, 'Volkswagen', 'Beetle', 2013, 'a', 60000, 60, '2014-07-27', 52000, 2),
+    	 (212, 'Ford', 'F-150', 2012, 'a', 100000, 60, '2015-02-13', 98000, 2);");
   
 	mysqli_query($cxn,"insert into Member (Password, FName, LName, Mem_Address, Phone, Email, License_No, CC_No, CC_Expiry, Annual_Fee, Reg_Anniv_Date) values
-         ('123', 'John', 'Doe', '123 Ontario St, Kingston ON K1A 1A1', NULL, 'john@doe.com', 'A1234-56789-01234', '1111-2222-3333-4444', '2018-01-20', 34.99, '06-01'),
-         ('123', 'Jane', 'Doe', NULL, '613-000-9999', 'jane@doe.com', 'J5555-10101-63928', '0000-1212-3333-9999', '2017-11-01', 105.99, '01-01'),
-		 ('123', 'Adam', 'Smith', NULL, NULL, 'invisiblehand@hotmail.com', 'H1111-11111-12345', NULL, NULL, 843.72, '12-31');");
+         ('123', 'John', 'Doe', '123 Ontario St, Kingston ON K1A 1A1', NULL, 'john@doe.com', 'A1234-56789-01234', '1111-2222-3333-4444', '2018-01-20', 34.99, '03-30'),
+         ('123', 'Jane', 'Doe', NULL, '613-000-9999', 'jane@doe.com', 'J5555-10101-63928', '0000-1212-3333-9999', '2017-11-01', 105.99, '03-27'),
+		 ('123', 'Adam', 'Smith', NULL, NULL, 'invisiblehand@hotmail.com', 'H1111-11111-12345', NULL, NULL, 843.72, '12-31'),
+		 ('password', 'admin', 'admin', NULL, NULL, 'admin', '1', NULL, NULL, 0, 0);");
 		 
 	mysqli_query($cxn,"insert into Location (Address, Num_Spaces) values
          ('500 Princess St, Kingston ON K7K 1X1', 30),
