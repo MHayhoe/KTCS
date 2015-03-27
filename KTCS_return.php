@@ -51,12 +51,47 @@
 	<br>
 
     <div class="container">
-      <!-- Example row of columns -->
-      <div class="row">
-          <h2>Heading</h2>
-          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-          <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
-      </div>
+      <?php
+		 $host = "localhost";
+		 $user = "admin";
+		 $password = "password";
+		 $database = "KTCS";
+
+		 $cxn = mysqli_connect($host,$user,$password, $database);
+		 // Check connection
+		 if (mysqli_connect_errno())
+		  {
+		  echo "Failed to connect to MySQL: " . mysqli_connect_error();
+		  die();
+		  } 
+
+			$query = "UPDATE Rental AS r, Car AS c
+					  SET r.Duration = TIMESTAMPDIFF(HOUR, r.Start_Date, NOW())," . 
+					  	 "r.End_Odom = " . $_GET["iEnd_Odom"] . ", c.Status = 'a'," . 
+					  	 "c.Last_Odom = " . $_GET["iEnd_Odom"] . ", c.LAst_Gas = " .
+					  	 $_GET["iLast_Gas"] .
+					  "WHERE c.VIN = " . $_GET["iVIN"] . " AND r.Duration = 0;";
+
+			$result = mysqli_query($cxn, $query);
+			
+			if($result)
+			{			
+				$url = 'KTCS_home.php?MIN=' . $_GET["MIN"] . '&returned=2'; //2 for success	
+			}
+			else
+			{
+				$url = 'KTCS_home.php?MIN=' . $_GET["MIN"] . '&returned=1'; //1 for failure			
+			}
+			//Go to the specified page
+			ob_start();
+			while(ob_get_status())
+			{
+				ob_end_clean();
+			}
+			header("Location: $url");
+
+		  mysqli_close($cxn); 
+		?>
 
       <hr>
 

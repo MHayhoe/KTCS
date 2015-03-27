@@ -76,8 +76,26 @@
       <div class="row">
           <div class="col-md-4">
           <h2>Return Vehicle</h2>
-          <p>Click here to return a car.</p>
-          <p><a class="btn btn-default" href="KTCS_return.php?MIN=<?=$_GET["MIN"];?>" role="button">View details &raquo;</a></p>
+          <p>Enter a VIN to return a car.</p>
+          <?
+			if(!empty($_GET["returned"]))
+			{
+				if($_GET["returned"] == 1) {
+					echo '<p>Incorrect information. Please try again.</p>';
+				}
+				else {
+					echo '<p>Car returned successfully. Thank you!</p>';
+				}
+			}
+		  ?>
+          <form method="get" action="KTCS_return.php">
+			  <!--<label for="iVIN" class="sr-only">Vehicle ID</label>-->
+			  <input type="text" id="iVIN" name="iVIN" class="form-control" style="width:200px" placeholder="Vehicle ID">
+			  <input type="text" id="iLast_Odom" name="iLast_Odom" class="form-control" style="width:200px" placeholder="Odometer after Rental">
+			  <input type="text" id="iLast_Gas" name="iLast_Gas" class="form-control" style="width:200px" placeholder="Gas Level after Rental">
+			  <input type="hidden" id="MIN" name="MIN" value="<?=$_GET["MIN"];?>">
+			  <button class="btn btn-default" style="width:200px" type="submit">Go &raquo;</button>
+          </form>
        </div>
         <div class="col-md-4">
           <h2>See Rental History</h2>
@@ -96,7 +114,7 @@
         </div>
         <div class="col-md-4">
           <h2>Available Cars</h2>
-          <p>Click here to view all available cars on a given date.</p>
+          <p>Enter a date to view all available cars on a given date.</p>
           <form method="get" action="KTCS_check_cars.php">
 			  <!--<label for="iVIN" class="sr-only">Vehicle ID</label>-->
 			  <input type="text" id="iDate" name="iDate" class="form-control" style="width:200px" placeholder="Date (Blank for Today)">
