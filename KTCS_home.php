@@ -52,6 +52,27 @@
 
     <div class="container">
       <!-- Example row of columns -->
+      <?php
+      		$host = "localhost";
+		 	$user = "admin";
+		 	$password = "password";
+		 	$database = "KTCS";
+
+			$cxn = mysqli_connect($host,$user,$password, $database);
+			// Check connection
+			if (mysqli_connect_errno())
+			{
+				echo "Failed to connect to MySQL: " . mysqli_connect_error();
+				die();
+			} 
+      		$query = "SELECT FName FROM Member WHERE MIN = " . $_GET["MIN"] . ";";
+      		$result = mysqli_query($cxn,$query);
+      		$value = $result->fetch_row();
+      		
+      		echo "<h2>Welcome, " . $value[0] . "</h2>";
+      		
+      		mysqli_close($cxn); 
+      ?>
       <div class="row">
           <div class="col-md-4">
           <h2>Return Vehicle</h2>

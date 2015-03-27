@@ -46,15 +46,35 @@
     </nav>
 	
     <div class="container">
-
-      <form class="form-signin">
-        <h2 class="form-signin-heading">Please sign up</h2>
-        <label for="inputEmail" class="sr-only">Email address</label>
-        <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
-        <label for="inputPassword" class="sr-only">Password</label>
-        <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
-      </form>
+	  <h2 class="form-signin-heading">Please sign in</h2>
+	  <h5>Required fields denoted by *</h5>
+      <form method="get" action="KTCS_add_member.php"> 
+      <?
+        if(!empty($_GET["attempt"]))
+        {
+        	echo '<p>Incorrect input. Please try again.</p>';
+        }
+      ?>
+			<label for="iFName" class="sr-only">First Name</label>
+        	<input type="text" id="iFName" name="iFName" class="form-control" placeholder="First Name*" required autofocus>
+        	<label for="iLName" class="sr-only">Last Name</label>
+        	<input type="text" id="iLName" name="iLName" class="form-control" placeholder="Last Name*" required>
+        	<label for="iMem_Address" class="sr-only">Address</label>
+        	<input type="text" id="iMem_Address" name="iMem_Address" class="form-control" placeholder="Address">
+        	<label for="iPhone" class="sr-only">Phone</label>
+        	<input type="text" id="iPhone" name="iPhone" class="form-control" placeholder="Phone">
+        	<label for="iEmail" class="sr-only">Email</label>
+        	<input type="email" id="iEmail" name="iEmail" class="form-control" placeholder="Email*" required>
+        	<label for="iPassword" class="sr-only">Password</label>
+        	<input type="password" id="iPassword" name="iPassword" class="form-control" placeholder="Password*" required>
+        	<label for="iLicense_No" class="sr-only">License Number</label>
+        	<input type="text" id="iLicense_No" name="iLicense_No" class="form-control" placeholder="License Number*" required>
+        	<label for="iCC_No" class="sr-only">Credit Card Number</label>
+        	<input type="text" id="iCC_No" name="iCC_No" class="form-control" placeholder="Credit Card Number">
+        	<label for="iCC_Expiry" class="sr-only">Credit Card Expiry</label>
+        	<input type="text" id="iCC_Expiry" name="iCC_Expiry" class="form-control" placeholder="Credit Card Expiry">
+        	<button class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
+		</form>
 
     </div> <!-- /container -->
 

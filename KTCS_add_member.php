@@ -37,45 +37,92 @@
           <a class="navbar-brand" href="KTCS_main.php">KTCS</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
-          <form class="navbar-form navbar-right" action="KTCS_login.php">
-            <button type="submit" class="btn btn-success">Sign in</button>
-          </form>
-          <form class="navbar-form navbar-right" action="KTCS_signup.php">
-            <button type="submit" class="btn btn-success">Sign up</button>
-          </form>
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="KTCS_admin.php">Home</a></li>
+          </ul>
         </div><!--/.navbar-collapse -->
       </div>
     </nav>
-
-    <!-- Main jumbotron for a primary marketing message or call to action -->
-    <div class="jumbotron">
-      <div class="container">
-        <h1>K-Town Car Share</h1>
-        <p>Car rentals, made affordable! Click below to sign up!</p>
-        <p><a class="btn btn-primary btn-lg" href="KTCS_signup.php" role="button">Sign up &raquo;</a></p>
-      </div>
-    </div>
+    
+	<br>
+	<br>
+	<br>
 
     <div class="container">
-      <!-- Example row of columns -->
-      <div class="row">
-        <div class="col-md-4">
-          <h2>Heading</h2>
-          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-          <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
-        </div>
-        <div class="col-md-4">
-          <h2>Heading</h2>
-          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-          <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
-       </div>
-        <div class="col-md-4">
-          <h2>Heading</h2>
-          <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-          <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
-        </div>
-      </div>
+      <h2>Car Added</h2>
+      <?
+      	 $host = "localhost";
+		 $user = "admin";
+		 $password = "password";
+		 $database = "KTCS";
 
+		 $cxn = mysqli_connect($host,$user,$password, $database);
+		 // Check connection
+		 if (mysqli_connect_errno())
+		  {
+		  echo "Failed to connect to MySQL: " . mysqli_connect_error();
+		  die();
+		  } 
+		  
+		  $query = "insert into Member (Password, FName, LName, Mem_Address, Phone, Email," . 
+		  			"License_No, CC_No, CC_Expiry, Annual_Fee, Reg_Anniv_Date) values ('" .
+		  			$_GET["iPassword"] . "','" . $_GET["iFName"] . "','" . $_GET["iLName"] .
+		  			"'";
+	
+			if(empty($_GET["iMem_Address"])) {
+				$query = $query . ",NULL";
+			}
+			else {
+				$query = $query . ",'" . $_GET["iMem_Address"] . "'";
+			}
+			if(empty($_GET["iPhone"])) {
+				$query = $query . ",NULL,'";
+			}
+			else {
+				$query = $query . ",'" . $_GET["iPhone"] . "','";
+			}
+			
+			$query = $query . $_GET["iEmail"] . "','" . $_GET["iLicense_No"] . "'";
+			
+			if(empty($_GET["iCC_No"])) {
+				$query = $query . ",NULL";
+			}
+			else {
+				$query = $query . ",'" . $_GET["iCC_No"] . "'";
+			}
+			if(empty($_GET["iCC_Expiry"])) {
+				$query = $query . ",NULL";
+			}
+			else {
+				$query = $query . ",'" . $_GET["iCC_Expiry"] . "'";
+			}
+			
+			$query = $query . ",19.99,'" . date('Y-m-d', time()) . "');";
+			
+			$result = mysqli_query($cxn, $query);
+			
+			if (!$result || empty($_GET["iPassword"])) //query failed
+			{
+				$url = 'KTCS_signup.php?attempt=1';
+			}
+			else
+			{
+				$query2 = "SELECT MIN FROM Member WHERE Email = '" . $_GET["iEmail"] . "' LIMIT 1;";
+				$result = mysqli_query($cxn, $query2);
+				$value = $result->fetch_row();
+				$url = "KTCS_home.php?MIN=" . $value[0];
+			}
+			
+			//Go back to input page
+			ob_start();
+			while(ob_get_status())
+			{
+				ob_end_clean();
+			}
+			header("Location: $url");
+			
+		  	mysqli_close($cxn); 
+        ?>
       <hr>
 
       <footer>
