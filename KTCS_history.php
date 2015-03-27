@@ -105,12 +105,71 @@
 		
       <hr>
 
-      <footer>
+      
+    </div> <!-- /container -->
+
+	<div class="container">
+      <!-- Example row of columns -->
+      <div class="row">
+          <h2>Future Reservations</h2>
+          <p></p>
+          <!--
+          <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p> -->
+      </div> 
+	
+	<?php
+		 $host = "localhost";
+		 $user = "admin";
+		 $password = "password";
+		 $database = "KTCS";
+
+		 $cxn = mysqli_connect($host,$user,$password, $database);
+		 // Check connection
+		 if (mysqli_connect_errno())
+		 {
+		 	echo "Failed to connect to MySQL: " . mysqli_connect_error();
+		  	die();
+		 } 
+		 
+		 $query = "SELECT Res_Start, Res_End, Address, Make, Model, Year
+				   FROM Reservation NATURAL JOIN Location NATURAL JOIN Car
+				   WHERE MIN =".$_GET["MIN"].";";
+
+		 $result = mysqli_query($cxn, $query);
+		 
+		echo '<table cellpadding="5" cellspacing="5" class="db-table" border="1">';
+		$column = $result->fetch_fields();
+
+		echo '<tr>';
+		foreach ($column as $col) {
+			echo '<th>'.$col->name.'</th>';
+		}
+
+		echo '</tr>';
+		while($row2 = $result->fetch_row() ) {
+			echo '<tr>';
+			foreach($row2 as $key=>$value) {
+				echo '<td>',$value,'</td>';
+			}
+			echo '</tr>';
+		}
+		echo '</table><br />';
+		
+		 //echo "<br><h4>Query Executed!</h4>";
+		 		 
+		 mysqli_close($cxn); 
+		
+		?>
+	
+	
+		
+      <hr>
+
+		<footer>
         <p>&copy; KTCS 2015</p>
       </footer>
     </div> <!-- /container -->
-
-
+	
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
