@@ -12,9 +12,6 @@
 
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
-    
-    <!-- Custom styles for this template -->
-    <link href="KTCS_login.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
     <!--<link href="jumbotron.css" rel="stylesheet">-->
@@ -53,37 +50,50 @@
 
     <div class="container">
       <h2>Add New Car</h2>
-      <form method="get" action="KTCS_add_car_to_database.php"> 
       <?
-        if(!empty($_GET["attempt"]))
-        {
-        	echo '<p>Incorrect input. Please try again.</p>';
-        }
-      ?>
-			<label for="iVIN" class="sr-only">Vehicle ID</label>
-        	<input type="text" id="iVIN" name="iVIN" class="form-control" placeholder="Vehicle ID" required autofocus>
-        	<label for="iMake" class="sr-only">Make</label>
-        	<input type="text" id="iMake" name="iMake" class="form-control" placeholder="Make" required>
-        	<label for="iModel" class="sr-only">Model</label>
-        	<input type="text" id="iModel" name="iModel" class="form-control" placeholder="Model" required>
-        	<label for="iYear" class="sr-only">Year</label>
-        	<input type="text" id="iYear" name="iYear" class="form-control" placeholder="Year" required>
-        	<label for="iStatus" class="sr-only">Status</label>
-        	<input type="text" id="iStatus" name="iStatus" class="form-control" placeholder="Status" required>
-        	<label for="iLast_Odom" class="sr-only">Last Odometer Reading</label>
-        	<input type="text" id="iLast_Odom" name="iLast_Odom" class="form-control" placeholder="Last Odometer Reading" required>
-        	<label for="iLast_Gas" class="sr-only">Last Gas Reading</label>
-        	<input type="text" id="iLast_Gas" name="iLast_Gas" class="form-control" placeholder="Last Gas Reading" required>
-        	<label for="iMaint_Date" class="sr-only">Last Maintenance Date</label>
-        	<input type="text" id="iMaint_Date" name="iMaint_Date" class="form-control" placeholder="Last Maint. Date">
-        	<label for="iMaint_Odom" class="sr-only">Last Maintenance Odometer Reading</label>
-        	<input type="text" id="iMaint_Odom" name="iMaint_Odom" class="form-control" placeholder="Last Maint. Odom. Reading">
-        	<label for="iLNo" class="sr-only">Location Number</label>
-        	<input type="text" id="iLNo" name="iLNo" class="form-control" placeholder="Location Number">
-        	
-        	<button class="btn btn-lg btn-primary btn-block" type="submit">Add</button>
-		</form>
+      	 $host = "localhost";
+		 $user = "admin";
+		 $password = "password";
+		 $database = "KTCS";
 
+		 $cxn = mysqli_connect($host,$user,$password, $database);
+		 // Check connection
+		 if (mysqli_connect_errno())
+		  {
+		  echo "Failed to connect to MySQL: " . mysqli_connect_error();
+		  die();
+		  } 
+		  
+		  $query = "insert into Car values (" . $_GET["iVIN"] . ",'" . $_GET["iMake"] . "','" .
+					$_GET["iModel"] . "'," . $_GET["iYear"] . ",'" . $_GET["iStatus"] . "'," .
+					$_GET["iLast_Odom"] . "," . $_GET["iLast_Gas"];
+	
+			if(empty($_GET["iMaint_Date"])) {
+				$query = $query . ",NULL";
+			}
+			else {
+				$query = $query . ",'" . $_GET["iMaint_Date"] . "'";
+			}
+			if(empty($_GET["iMaint_Odom"])) {
+				$query = $query . ",NULL";
+			}
+			else {
+				$query = $query . "," . $_GET["iMaint_Odom"];
+			}
+			if(empty($_GET["iLNo"])) {
+				$query = $query . ",NULL);";
+			}
+			else {
+				$query = $query . "," . $_GET["iLNo"] . ");";
+			}
+			
+			echo $query;
+			$result = mysqli_query($cxn, $query);
+			echo "<br><h4>Car added.</h4>";
+		  	mysqli_close($cxn); 
+  
+			echo '<a href = "KTCS_admin.php?">Back to Admin Page</a>';
+      ?>
       <hr>
 
       <footer>
