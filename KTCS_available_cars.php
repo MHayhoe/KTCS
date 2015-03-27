@@ -127,8 +127,8 @@
 				  FROM Car AS c
 				  WHERE LNo = " . $_GET["iLNo"] . " AND c.VIN NOT IN (SELECT VIN
 																	  FROM Car NATURAL JOIN Reservation AS r
-																	  WHERE (TIMESTAMPDIFF(HOUR, r.Res_Start," . $date . ") >= 0
-																	  AND TIMESTAMPDIFF(HOUR," . $date . ",r.Res_End) >= 0));";
+																	  WHERE (TIMESTAMPDIFF(HOUR, r.Res_Start,'" . $date . "') >= 0
+																	  AND TIMESTAMPDIFF(HOUR,'" . $date . "',r.Res_End) >= 0));";
 				  
 		$result = mysqli_query($cxn, $query);
 
