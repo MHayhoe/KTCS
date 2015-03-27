@@ -51,22 +51,93 @@
 	<br>
 
     <div class="container">
-      <h2>Enter a Date</h2>
-      <p>To see cars available today, leave the text field blank.</p>
-      <form method="get" action="KTCS_check_cars.php"> 
+      <h2>Available Cars</h2>
       <?
-        if(!empty($_GET["attempt"]))
-        {
-        	echo '<p>Incorrect input. Please try again.</p>';
-        }
-      ?>
-			<!--<label for="iDate" class="sr-only">Date (yyyy-mm-dd)</label>-->
-        	<input type="text" id="iDate" name="iDate" class="form-control" placeholder="Date (yyyy-mm-dd)" autofocus required>
-        	<input type="hidden" id="MIN" name="MIN" value="<?=$_GET["MIN"];?>">
-        	
-        	<button class="btn btn-lg btn-primary btn-block" type="submit">Go</button>
-		</form>
+      	 $host = "localhost";
+		 $user = "admin";
+		 $password = "password";
+		 $database = "KTCS";
 
+		 $cxn = mysqli_connect($host,$user,$password, $database);
+		 // Check connection
+		 if (mysqli_connect_errno())
+		  {
+		  echo "Failed to connect to MySQL: " . mysqli_connect_error();
+		  die();
+		  }   
+		  
+			if(empty($_GET["iDate"])) 
+			{
+				$date = date('Y-m-d', time());
+
+				$query = "SELECT c.VIN, Make, Model, c.Year, Address, LNo
+		  				  FROM Car AS c NATURAL JOIN Location
+		  				  WHERE c.VIN NOT IN (SELECT VIN
+		  									  FROM Car NATURAL JOIN Reservation AS r
+		  									  WHERE (TIMESTAMPDIFF(HOUR, r.Res_Start, '". $date . "') >= 0
+		  									  AND TIMESTAMPDIFF(HOUR, '" . $date . "', r.Res_End) >= 0));";
+			}
+			else 
+			{				
+				$query = "SELECT c.VIN, Make, Model, c.Year, Address, LNo
+		  				  FROM Car AS c NATURAL JOIN Location
+		  				  WHERE c.VIN NOT IN (SELECT VIN
+		  									  FROM Car NATURAL JOIN Reservation AS r
+		  									  WHERE (TIMESTAMPDIFF(HOUR, r.Res_Start, '" . $_GET["iDate"] . "') >= 0
+		  									  AND TIMESTAMPDIFF(HOUR, '" . $_GET["iDate"] . "', r.Res_End) >= 0));";
+			}
+			
+			$result = mysqli_query($cxn, $query);
+			
+			if (!$result) //query failed
+			{
+				//Go back to input page
+				ob_start();
+				while(ob_get_status())
+				{
+					ob_end_clean();
+				}
+				$url = 'KTCS_available.php?MIN='.$_GET['MIN'].'&attempt=1';
+				header("Location: $url");
+			}
+			else
+			{
+				/*
+				$query2 = "SELECT * FROM Comment WHERE MIN = " . $_GET["MIN"] . ";";
+				$result = mysqli_query($cxn, $query2);*/
+			
+				echo '<table cellpadding="5" cellspacing="5" class="db-table" border="1">';
+				$column = $result->fetch_fields();
+	
+				echo '<tr>';
+				$num = 0;
+				foreach ($column as $col) 
+				{
+					if ($num != 5)
+						echo '<th>'.$col->name.'</th>';
+					$num++;
+				}
+	
+				echo '</tr>';
+				while($row2 = $result->fetch_row() ) 
+				{
+					echo '<tr>';
+					$num = 0;
+					foreach($row2 as $key=>$value) 
+					{						
+						if($num == 0)
+							echo '<td>','<a href="KTCS_reservation_info.php?MIN='.$_GET['MIN'].'&VIN='.$value.'&iDate='.$_GET['iDate'].'&iLNo='.$row2[5].'">',$value,'</a></td>';
+						elseif($num != 5)
+							echo '<td>',$value,'</td>';
+						$num++;
+					}
+					echo '</tr>';
+				}
+				echo '</table><br />';
+			}
+			
+		  	mysqli_close($cxn); 
+        ?>
       <hr>
 
       <footer>
