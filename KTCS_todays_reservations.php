@@ -21,6 +21,32 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+  <style>
+		#def {
+			width: 100%;
+			border-collapse: collapse;
+		}
+
+		#def td, #def th {
+			font-size: 1em;
+			border: 1px solid #666666;
+			padding: 3px 7px 2px 7px;
+		}
+
+		#def th {
+			font-size: 1.1em;
+			text-align: left;
+			padding-top: 5px;
+			padding-bottom: 4px;
+			background-color: #0000ff;
+			color: #ffffff;
+		}
+
+		#def tr.alt td {
+			color: #000000;
+			background-color: #E6E6E6;
+		}
+	</style>
   </head>
 
   <body>
@@ -82,7 +108,7 @@
 		{
 			$result = mysqli_query($cxn, $query);
 
-			echo '<table cellpadding="5" cellspacing="5" class="db-table" border="1">';
+			echo '<table cellpadding="5" cellspacing="5" class="db-table" id="def" border="1">';
 			$column = $result->fetch_fields();
 
 			echo '<tr>';
