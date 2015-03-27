@@ -64,7 +64,7 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="KTCS_home.php?MIN=<?=$_GET["MIN"];?>">Home</a></li>
+            <li><a href="KTCS_home.php?MIN=<?=$_GET["MIN"];?>">Home</a></li>
             <li><a href="KTCS_reserve.php?MIN=<?=$_GET["MIN"];?>">Reserve a Car</a></li>
             <li><a href="KTCS_contact.php?MIN=<?=$_GET["MIN"];?>">Contact</a></li>
           </ul>
