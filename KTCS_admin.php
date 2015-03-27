@@ -54,42 +54,52 @@
           <div class="col-md-4">
           <h2>Today's Annual Fees</h2>
           <p>Click here to view members to be charged today.</p>
-          <p><a class="btn btn-default" href="KTCS_anniversary.php" role="button">View details &raquo;</a></p>
+          <p><a class="btn btn-default" href="KTCS_anniversary.php" role="button">Go &raquo;</a></p>
        </div>
         <div class="col-md-4">
           <h2>Add Car</h2>
           <p>Click here to add a new car to the fleet.</p>
-          <p><a class="btn btn-default" href="KTCS_add_car.php" role="button">View details &raquo;</a></p>
+          <p><a class="btn btn-default" href="KTCS_add_car.php" role="button">Go &raquo;</a></p>
         </div>
         <div class="col-md-4">
           <h2>Car History</h2>
           <p>Click here to view the rental history of a specific car.</p>
-          <p><a class="btn btn-default" href="KTCS_car_history.php" role="button">View details &raquo;</a></p>
+          <form method="get" action="KTCS_car_history.php">
+			  <!--<label for="iVIN" class="sr-only">Vehicle ID</label>-->
+			  <input type="text" id="iVIN" name="iVIN" class="form-control" style="width:200px" placeholder="Vehicle ID">
+			  <button class="btn btn-default" style="width:200px" type="submit">Go &raquo;</button>
+          </form>
         </div>
         <div class="col-md-4">
           <h2>Available Cars</h2>
           <p>Click here to view all available cars on a given date.</p>
-          <p><a class="btn btn-default" href="KTCS_available_cars.php" role="button">View details &raquo;</a></p>
-        </div>
+          <form method="get" action="KTCS_available_cars.php">
+			  <!--<label for="iVIN" class="sr-only">Vehicle ID</label>-->
+			  <input type="text" id="iDate" name="iDate" class="form-control" style="width:200px" placeholder="Date (Blank for Today)">
+			  <button class="btn btn-default" style="width:200px" type="submit">Go &raquo;</button>
+          </form>
+          </div>
         <div class="col-md-4">
           <h2>Maintenance</h2>
           <p>Click here to view all cars that are in need of maintenance.</p>
-          <p><a class="btn btn-default" href="KTCS_maintenance.php" role="button">View details &raquo;</a></p>
+          <p><a class="btn btn-default" href="KTCS_maintenance.php" role="button">Go &raquo;</a></p>
+          <br><br>
         </div>
         <div class="col-md-4">
           <h2>Best/Worst Cars</h2>
           <p>Click here to view the most and least popular cars by rental.</p>
-          <p><a class="btn btn-default" href="KTCS_best_worst_cars.php" role="button">View details &raquo;</a></p>
+          <p><a class="btn btn-default" href="KTCS_best_worst_cars.php" role="button">Go &raquo;</a></p>
+          <br><br>
         </div>
         <div class="col-md-4">
           <h2>Today's Reservations</h2>
           <p>Click here to view all cars that are in need of maintenance.</p>
-          <p><a class="btn btn-default" href="KTCS_todays_reservations.php" role="button">View details &raquo;</a></p>
+          <p><a class="btn btn-default" href="KTCS_todays_reservations.php" role="button">Go &raquo;</a></p>
         </div>
         <div class="col-md-4">
           <h2>Respond to Comment</h2>
           <p>Click here to respond to a member's comment.</p>
-          <p><a class="btn btn-default" href="KTCS_respond_comment.php" role="button">View details &raquo;</a></p>
+          <p><a class="btn btn-default" href="KTCS_respond_comment.php" role="button">Go &raquo;</a></p>
         </div>
       </div>
 

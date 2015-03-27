@@ -53,10 +53,72 @@
     <div class="container">
       <!-- Example row of columns -->
       <div class="row">
-          <h2>Heading</h2>
-          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-          <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
-      </div>
+        <?php
+		 $host = "localhost";
+		 $user = "admin";
+		 $password = "password";
+		 $database = "KTCS";
+
+		 $cxn = mysqli_connect($host,$user,$password, $database);
+		 // Check connection
+		 if (mysqli_connect_errno())
+		 {
+		 	echo "Failed to connect to MySQL: " . mysqli_connect_error();
+		  	die();
+		 } 
+		 
+		 if(empty($_GET["iDate"]))
+		 {
+		 	$date = DATE_FORMAT(NOW(),"%Y-%m-%d");
+		 }
+		 else
+		 {
+		 	$date = $_GET["iDate"];
+		 }
+		 
+		 if() //NO AVAILABLE CARS ON THIS DATE
+		 {
+		 echo "<h2>Available Cars on " . DATE_FORMAT($date, "%M %e, %Y") . "</h2>";
+
+			$query = "SELECT Start_Date, Duration, Start_Odom, End_Odom, Usage_Fee, Make, Model
+					  FROM Rental NATURAL JOIN Car
+					  WHERE VIN = " . $_GET["iVIN"] . ";";
+					  
+		 	$result = mysqli_query($cxn, $query);
+
+			if(empty($result->fetch_assoc()))
+			{
+				echo "No Rental History to display.";
+			}
+			else
+			{
+				$result = mysqli_query($cxn, $query);
+
+				echo '<table cellpadding="5" cellspacing="5" class="db-table" border="1">';
+				$column = $result->fetch_fields();
+	
+				echo '<tr>';
+				foreach ($column as $col) {
+					echo '<th>'.$col->name.'</th>';
+				}
+	
+				echo '</tr>';
+				while($row2 = $result->fetch_row() ) {
+					echo '<tr>';
+					foreach($row2 as $key=>$value) {
+						echo '<td>',$value,'</td>';
+					}
+					echo '</tr>';
+				}
+				echo '</table><br />';
+			}
+		 }
+		 		 
+		 mysqli_close($cxn); 
+
+		?>
+          
+          </div>
 
       <hr>
 
