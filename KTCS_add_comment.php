@@ -51,35 +51,75 @@
 	<br>
 
     <div class="container">
-      <!-- Example row of columns -->
-      <div class="row">
-          <div class="col-md-4">
-          <h2>Return Vehicle</h2>
-          <p>Click here to return a car.</p>
-          <p><a class="btn btn-default" href="KTCS_return.php?MIN=<?=$_GET["MIN"];?>" role="button">View details &raquo;</a></p>
-       </div>
-        <div class="col-md-4">
-          <h2>See Rental History</h2>
-          <p>Click here to see your rental history.</p>
-          <p><a class="btn btn-default" href="KTCS_history.php?MIN=<?=$_GET["MIN"];?>" role="button">View details &raquo;</a></p>
-        </div>
-        <div class="col-md-4">
-          <h2>See Locations</h2>
-          <p>Click here to see all of our locations.</p>
-          <p><a class="btn btn-default" href="KTCS_locations.php?MIN=<?=$_GET["MIN"];?>" role="button">View details &raquo;</a></p>
-        </div>
-        <div class="col-md-4">
-          <h2>Make a Comment</h2>
-          <p>Click here to make a comment.</p>
-          <p><a class="btn btn-default" href="KTCS_comment.php?MIN=<?=$_GET["MIN"];?>" role="button">View details &raquo;</a></p>
-        </div>
-        <div class="col-md-4">
-          <h2>View Available Cars</h2>
-          <p>Click here to see all the available cars at a given time, and make bookings.</p>
-          <p><a class="btn btn-default" href="KTCS_available.php?MIN=<?=$_GET["MIN"];?>" role="button">View details &raquo;</a></p>
-        </div>
-      </div>
+      <h2>Car Added</h2>
+      <?
+      	 $host = "localhost";
+		 $user = "admin";
+		 $password = "password";
+		 $database = "KTCS";
 
+		 $cxn = mysqli_connect($host,$user,$password, $database);
+		 // Check connection
+		 if (mysqli_connect_errno())
+		  {
+		  echo "Failed to connect to MySQL: " . mysqli_connect_error();
+		  die();
+		  } 
+		  /*
+		  $query = "INSERT INTO Comment (Message, MIN, VIN)
+		  			VALUES ('Test Message', 1, NULL);";	*/	  
+	
+		  $query = "INSERT INTO Comment (Message, MIN, VIN)
+		  			VALUES ('" . $_GET["iComment"] . "'," . $_GET["MIN"] .",";
+	
+			if(empty($_GET["iVIN"])) 
+			{
+				$query = $query . "NULL);";
+			}
+			else 
+			{
+				$query = $query . $_GET["iVIN"] .");";
+			}
+			
+			$result = mysqli_query($cxn, $query);
+			
+			if (!$result) //query failed
+			{
+				//Go back to input page
+				ob_start();
+				while(ob_get_status())
+				{
+					ob_end_clean();
+				}
+				$url = 'KTCS_comment.php?MIN='.$_GET['MIN'].'&attempt=1';
+				header("Location: $url");
+			}
+			else
+			{
+				$query2 = "SELECT * FROM Comment WHERE MIN = " . $_GET["MIN"] . ";";
+				$result = mysqli_query($cxn, $query2);
+			
+				echo '<table cellpadding="5" cellspacing="5" class="db-table" border="1">';
+				$column = $result->fetch_fields();
+	
+				echo '<tr>';
+				foreach ($column as $col) {
+					echo '<th>'.$col->name.'</th>';
+				}
+	
+				echo '</tr>';
+				while($row2 = $result->fetch_row() ) {
+					echo '<tr>';
+					foreach($row2 as $key=>$value) {
+						echo '<td>',$value,'</td>';
+					}
+					echo '</tr>';
+				}
+				echo '</table><br />';
+			}
+			
+		  	mysqli_close($cxn); 
+        ?>
       <hr>
 
       <footer>

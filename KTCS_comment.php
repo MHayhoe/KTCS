@@ -51,12 +51,22 @@
 	<br>
 
     <div class="container">
-      <!-- Example row of columns -->
-      <div class="row">
-          <h2>Heading</h2>
-          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-          <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
-      </div>
+      <h2>Make a Comment</h2>
+      <form method="get" action="KTCS_add_comment.php"> 
+      <?
+        if(!empty($_GET["attempt"]))
+        {
+        	echo '<p>Incorrect input. Please try again.</p>';
+        }
+      ?>
+			<label for="iComment" class="sr-only">Comment</label>
+        	<input type="text" id="iComment" name="iComment" class="form-control" placeholder="Comment" autofocus required>
+			<label for="iVIN" class="sr-only">Vehicle ID</label>
+        	<input type="text" id="iVIN" name="iVIN" class="form-control" placeholder="Vehicle ID">
+        	<input type="hidden" id="MIN" name="MIN" value="<?=$_GET["MIN"];?>">
+        	
+        	<button class="btn btn-lg btn-primary btn-block" type="submit">Add</button>
+		</form>
 
       <hr>
 
