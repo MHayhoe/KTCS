@@ -84,6 +84,7 @@
           <h2>Today's Reservations</h2>
           <p>Click here to view all reservations for today.</p>
           <p><a class="btn btn-default" href="KTCS_todays_reservations.php" role="button">Go &raquo;</a></p>
+          <br>
         </div>
         <div class="col-md-4">
           <h2>Available Cars</h2>
