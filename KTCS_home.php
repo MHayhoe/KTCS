@@ -69,7 +69,7 @@
       		$result = mysqli_query($cxn,$query);
       		$value = $result->fetch_row();
       		
-      		echo "<h2>Welcome, " . $value[0] . "</h2>";
+      		echo "<h2>Welcome, " . $value[0] . "!</h2>";
       		
       		mysqli_close($cxn); 
       ?>
@@ -100,17 +100,17 @@
         <div class="col-md-4">
           <h2>See Rental History</h2>
           <p>Click here to see your rental history.</p>
-          <p><a class="btn btn-default" href="KTCS_history.php?MIN=<?=$_GET["MIN"];?>" role="button">View details &raquo;</a></p>
+          <p><a class="btn btn-default" href="KTCS_history.php?MIN=<?=$_GET["MIN"];?>" role="button">View &raquo;</a></p>
         </div>
         <div class="col-md-4">
           <h2>See Locations</h2>
           <p>Click here to see all of our locations.</p>
-          <p><a class="btn btn-default" href="KTCS_locations.php?MIN=<?=$_GET["MIN"];?>" role="button">View details &raquo;</a></p>
+          <p><a class="btn btn-default" href="KTCS_locations.php?MIN=<?=$_GET["MIN"];?>" role="button">View &raquo;</a></p>
         </div>
         <div class="col-md-4">
           <h2>Make a Comment</h2>
           <p>Click here to make a comment.</p>
-          <p><a class="btn btn-default" href="KTCS_comment.php?MIN=<?=$_GET["MIN"];?>" role="button">View details &raquo;</a></p>
+          <p><a class="btn btn-default" href="KTCS_comment.php?MIN=<?=$_GET["MIN"];?>" role="button">Go &raquo;</a></p>
         </div>
         <div class="col-md-4">
           <h2>Available Cars</h2>
