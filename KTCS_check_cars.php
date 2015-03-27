@@ -68,7 +68,7 @@
 		  
 			if(empty($_GET["iDate"])) 
 			{
-				$date = date('Y-m-d', time());
+				$date = date('Y-m-d H:i:s', time());
 
 				$query = "SELECT c.VIN, Make, Model, c.Year, Address, LNo
 		  				  FROM Car AS c NATURAL JOIN Location

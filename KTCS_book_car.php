@@ -51,7 +51,7 @@
 	<br>
 
     <div class="container">
-      <h2>Car Booking</h2>
+      <h2>Your Current Bookings</h2>
       <?
       	 $host = "localhost";
 		 $user = "admin";
@@ -66,48 +66,63 @@
 		  die();
 		  } 
 		  	
-		  $query = "INSERT INTO Reservation (Res_Start, Res_End, MIN, LNo, VIN)
-		  			VALUES ('" . $_GET["iStart"] . "','" . $_GET["iEnd"] ."'," . $_GET["MIN"]."," . $_GET["iLNo"].",".$_GET["VIN"].");";
-			
-			$result = mysqli_query($cxn, $query);
-			
-			if (!$result) //query failed
-			{
-				//Go back to input page
+		  	if (empty($_GET["iEnd"]))
+		  	{
+		  		//Go back to input page
 				ob_start();
 				while(ob_get_status())
 				{
 					ob_end_clean();
 				}
-				$url = 'KTCS_comment.php?MIN='.$_GET['MIN'].'&attempt=1';
+				$url = 'KTCS_reservation_info.php?MIN='.$_GET['MIN'].'&VIN='.$_GET['VIN'].'&iLNo='.$_GET['iLNo'].'&iDate='.$_GET['iDate'].'&attempt=1';
 				header("Location: $url");
-			}
-			else
-			{
-				$query2 = "SELECT * FROM Reservation WHERE MIN = " . $_GET["MIN"] . ";";
-				$result = mysqli_query($cxn, $query2);
+		  	}
+		  	else
+		  	{
+		  		$query = "INSERT INTO Reservation (Res_Start, Res_End, MIN, LNo, VIN)
+		  			  VALUES ('" . $_GET["iStart"] . "','" . $_GET["iEnd"] ."'," . $_GET["MIN"]."," . $_GET["iLNo"].",".$_GET["VIN"].");";
 			
-				echo '<table cellpadding="5" cellspacing="5" class="db-table" border="1">';
-				$column = $result->fetch_fields();
-	
-				echo '<tr>';
-				foreach ($column as $col) {
-					echo '<th>'.$col->name.'</th>';
-				}
-	
-				echo '</tr>';
-				while($row2 = $result->fetch_row() ) {
-					echo '<tr>';
-					foreach($row2 as $key=>$value) {
-						echo '<td>',$value,'</td>';
+				$result = mysqli_query($cxn, $query);
+			
+				if (!$result) //query failed
+				{
+					//Go back to input page
+					ob_start();
+					while(ob_get_status())
+					{
+						ob_end_clean();
 					}
-					echo '</tr>';
+					$url = 'KTCS_reservation_info.php?MIN='.$_GET['MIN'].'&VIN='.$_GET['VIN'].'&iLNo='.$_GET['iLNo'].'&iDate='.$_GET['iDate'].'&attempt=1';
+					header("Location: $url");
 				}
-				echo '</table><br />';
-			}
+				else
+				{
+					$query2 = "SELECT * FROM Reservation WHERE MIN = " . $_GET["MIN"] . ";";
+					$result = mysqli_query($cxn, $query2);
 			
-		  	mysqli_close($cxn); 
-        ?>
+					echo '<table cellpadding="5" cellspacing="5" class="db-table" border="1">';
+					$column = $result->fetch_fields();
+	
+					echo '<tr>';
+					foreach ($column as $col) {
+						echo '<th>'.$col->name.'</th>';
+					}
+	
+					echo '</tr>';
+					while($row2 = $result->fetch_row() ) {
+						echo '<tr>';
+						foreach($row2 as $key=>$value) {
+							echo '<td>',$value,'</td>';
+						}
+						echo '</tr>';
+					}
+					echo '</table><br />';
+				}
+			
+				mysqli_close($cxn); 
+		  	}
+		  	
+		  	?>
       <hr>
 
       <footer>

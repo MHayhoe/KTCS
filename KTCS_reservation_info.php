@@ -61,8 +61,8 @@
         }
       ?>			
 			<!--<label for="iDate" class="sr-only">Date (yyyy-mm-dd)</label>-->
-        	<input type="text" id="iStart" name="iStart" class="form-control" value="<?=$_GET["iDate"];?>"  required>
-        	<input type="text" id="iEnd" name="iEnd" class="form-control" placeholder="End Date (yyyy-mm-dd)" autofocus required>
+        	<input type="text" id="iStart" name="iStart" class="form-control" placeholder="Start Date (yyyy-MM-dd hh:mm:ss)" value="<?=$_GET["iDate"];?>"  required>
+        	<input type="text" id="iEnd" name="iEnd" class="form-control" placeholder="End Date (yyyy-MM-dd hh:mm:ss)" autofocus required>
         	<input type="hidden" id="MIN" name="MIN" value="<?=$_GET["MIN"];?>">
         	<input type="hidden" id="VIN" name="VIN" value="<?=$_GET["VIN"];?>">
 			<input type="hidden" id="iDate" name="iDate" value="<?=$_GET["iDate"];?>">
