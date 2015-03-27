@@ -82,6 +82,7 @@
       
       <div class="row">
           <h2>Locations</h2>
+          <h4>You can find us at:</h4>
           <!-- <p>Display query results here</p>
           <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p> -->
       </div>

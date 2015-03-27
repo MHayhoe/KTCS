@@ -65,7 +65,7 @@
         	<input type="text" id="iDate" name="iDate" class="form-control" placeholder="Date (yyyy-MM-dd hh:mm:ss)" autofocus required>
         	<input type="hidden" id="MIN" name="MIN" value="<?=$_GET["MIN"];?>">
         	
-        	<button class="btn btn-lg btn-primary btn-block" type="submit">Go</button>
+        	<button class="btn btn-primary btn-block" type="submit">Go</button>
 		</form>
 
       <hr>

@@ -78,7 +78,7 @@
 	<br>
 
     <div class="container">
-      <h2>Car Added</h2>
+      <h2>Comments</h2>
       <?
       	 $host = "localhost";
 		 $user = "admin";
@@ -123,7 +123,9 @@
 			}
 			else
 			{
-				$query2 = "SELECT * FROM Comment WHERE MIN = " . $_GET["MIN"] . ";";
+				$query2 = "SELECT Message, Response
+						   FROM Comment
+						   WHERE MIN = " . $_GET["MIN"] . ";";
 				$result = mysqli_query($cxn, $query2);
 			
 				echo '<table cellpadding="5" cellspacing="5" class="db-table" id = "def" border="1">';

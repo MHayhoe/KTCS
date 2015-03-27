@@ -68,7 +68,7 @@
 			<input type="hidden" id="iDate" name="iDate" value="<?=$_GET["iDate"];?>">
 			<input type="hidden" id="iLNo" name="iLNo" value="<?=$_GET["iLNo"];?>">
         	
-        	<button class="btn btn-lg btn-primary btn-block" type="submit">Go</button>
+        	<button class="btn btn-primary btn-block" type="submit">Go</button>
 		</form>
 
       <hr>

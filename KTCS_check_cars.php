@@ -155,7 +155,7 @@
 						{
 							if(empty($_GET["iDate"]))
 							{
-								$date = date('Y-m-d', time());
+								$date = date('Y-m-d H:i:s', time());
 								echo '<td>','<a href="KTCS_reservation_info.php?MIN='.$_GET['MIN'].'&VIN='.$value.'&iDate='.$date.'&iLNo='.$row2[5].'">',$value,'</a></td>';
 							}
 							else
