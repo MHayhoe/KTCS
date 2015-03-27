@@ -21,7 +21,8 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-  <style>
+    
+    <style>
 		#def {
 			width: 100%;
 			border-collapse: collapse;
@@ -75,8 +76,7 @@
 	<br>
 
     <div class="container">
-      <h2>Comments</h2>
-      <h4>To respond to a comment, click on it's number</h4>
+      <h2>Your Current Bookings</h2>
       <?
       	 $host = "localhost";
 		 $user = "admin";
@@ -89,61 +89,41 @@
 		  {
 		  echo "Failed to connect to MySQL: " . mysqli_connect_error();
 		  die();
-		  }   
-
-			$query = "SELECT *
-					  FROM Comment;";
-
+		  } 
+		  	
+		  	if (empty($_GET["iResp"]))
+		  	{
+				$url = 'KTCS_enter_response.php?iCommNo='.'&attempt=1';
+		  	}
+		  	else
+		  	{
+		  		$query = "UPDATE Comment
+		  				  SET Response = '" . $_GET["iResp"] . "'
+		  				  WHERE Comm_No = " . $_GET["iCommNo"] . ";";
+		  			  	  
 			
-			$result = mysqli_query($cxn, $query);
+				$result = mysqli_query($cxn, $query);
 			
-			if (!$result) //query failed
+				if (!$result) //query failed
+				{
+					$url = 'KTCS_enter_response.php?iCommNo='.'&attempt=1';
+				}
+				else
+				{
+					$url = 'KTCS_respond_comment.php';
+				}
+			
+				mysqli_close($cxn); 
+		  	}
+		  	
+			ob_start();
+			while(ob_get_status())
 			{
-				//Go back to input page
-				ob_start();
-				while(ob_get_status())
-				{
-					ob_end_clean();
-				}
-				$url = 'KTCS_admin.php';
-				header("Location: $url");
+				ob_end_clean();
 			}
-			else
-			{
-			
-				echo '<table cellpadding="5" cellspacing="5" class="db-table" id="def" border="1">';
-				$column = $result->fetch_fields();
-	
-				echo '<tr>';
-				foreach ($column as $col) 
-				{
-					echo '<th>'.$col->name.'</th>';
-				}
-	
-				echo '</tr>';
-				while($row2 = $result->fetch_row() ) 
-				{
-					echo '<tr>';
-					$num = 0;
-					foreach($row2 as $key=>$value) 
-					{						
-						if($num == 0)
-						{
-							echo '<td>','<a href="KTCS_enter_response.php?iCommNo='.$value.'">',$value,'</a></td>';	
-						}
-						else
-						{
-							echo '<td>',$value,'</td>';
-						}
-						$num++;
-					}
-					echo '</tr>';
-				}
-				echo '</table><br />';
-			}
-			
-		  	mysqli_close($cxn); 
-        ?>
+			header("Location: $url");
+		  	
+		  	?>
       <hr>
 
       <footer>

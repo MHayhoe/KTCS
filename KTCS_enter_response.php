@@ -21,32 +21,6 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-  <style>
-		#def {
-			width: 100%;
-			border-collapse: collapse;
-		}
-
-		#def td, #def th {
-			font-size: 1em;
-			border: 1px solid #666666;
-			padding: 3px 7px 2px 7px;
-		}
-
-		#def th {
-			font-size: 1.1em;
-			text-align: left;
-			padding-top: 5px;
-			padding-bottom: 4px;
-			background-color: #0000ff;
-			color: #ffffff;
-		}
-
-		#def tr.alt td {
-			color: #000000;
-			background-color: #E6E6E6;
-		}
-	</style>
   </head>
 
   <body>
@@ -75,10 +49,16 @@
 	<br>
 
     <div class="container">
-      <h2>Comments</h2>
-      <h4>To respond to a comment, click on it's number</h4>
+      <h2>Enter the Response</h2>
+      <h4>Comment: 
+      <form method="get" action="KTCS_insert_response.php"> 
       <?
-      	 $host = "localhost";
+        if(!empty($_GET["attempt"]))
+        {
+        	echo '<p>Incorrect input. Please try again.</p>';
+        }
+        
+         $host = "localhost";
 		 $user = "admin";
 		 $password = "password";
 		 $database = "KTCS";
@@ -92,58 +72,39 @@
 		  }   
 
 			$query = "SELECT *
-					  FROM Comment;";
+					  FROM Comment
+					  WHERE Comm_No = ". $_GET["iCommNo"].";";
 
 			
 			$result = mysqli_query($cxn, $query);
-			
+						
 			if (!$result) //query failed
 			{
+				
 				//Go back to input page
 				ob_start();
 				while(ob_get_status())
 				{
 					ob_end_clean();
 				}
-				$url = 'KTCS_admin.php';
+				$url = 'KTCS_respond_comment.php';
 				header("Location: $url");
 			}
 			else
 			{
+				echo $result->fetch_row()[1] . '</h4>';
 			
-				echo '<table cellpadding="5" cellspacing="5" class="db-table" id="def" border="1">';
-				$column = $result->fetch_fields();
-	
-				echo '<tr>';
-				foreach ($column as $col) 
-				{
-					echo '<th>'.$col->name.'</th>';
-				}
-	
-				echo '</tr>';
-				while($row2 = $result->fetch_row() ) 
-				{
-					echo '<tr>';
-					$num = 0;
-					foreach($row2 as $key=>$value) 
-					{						
-						if($num == 0)
-						{
-							echo '<td>','<a href="KTCS_enter_response.php?iCommNo='.$value.'">',$value,'</a></td>';	
-						}
-						else
-						{
-							echo '<td>',$value,'</td>';
-						}
-						$num++;
-					}
-					echo '</tr>';
-				}
-				echo '</table><br />';
 			}
 			
 		  	mysqli_close($cxn); 
-        ?>
+      ?>			
+			<!--<label for="iDate" class="sr-only">Date (yyyy-mm-dd)</label>-->
+        	<input type="text" id="iResp" name="iResp" class="form-control" placeholder="Response" autofocus required>
+        	<input type="hidden" id="iCommNo" name="iCommNo" value="<?=$_GET["iCommNo"];?>">
+        	
+        	<button class="btn btn-primary btn-block" type="submit">Go</button>
+		</form>
+
       <hr>
 
       <footer>
