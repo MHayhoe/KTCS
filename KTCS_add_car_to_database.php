@@ -49,7 +49,7 @@
 	<br>
 
     <div class="container">
-      <h2>Add New Car</h2>
+      <h2>Car Added</h2>
       <?
       	 $host = "localhost";
 		 $user = "admin";
@@ -87,13 +87,46 @@
 				$query = $query . "," . $_GET["iLNo"] . ");";
 			}
 			
-			echo $query;
 			$result = mysqli_query($cxn, $query);
-			echo "<br><h4>Car added.</h4>";
+			
+			if (!$result) //query failed
+			{
+				//Go back to input page
+				ob_start();
+				while(ob_get_status())
+				{
+					ob_end_clean();
+				}
+				$url = 'KTCS_add_car.php?attempt=1';
+				header("Location: $url");
+			}
+			else
+			{
+				$query2 = "SELECT * FROM Car WHERE VIN = " . $_GET["iVIN"] . ";";
+				$result = mysqli_query($cxn, $query2);
+			
+				echo '<table cellpadding="5" cellspacing="5" class="db-table" border="1">';
+				$column = $result->fetch_fields();
+	
+				echo '<tr>';
+				foreach ($column as $col) {
+					echo '<th>'.$col->name.'</th>';
+				}
+	
+				echo '</tr>';
+				while($row2 = $result->fetch_row() ) {
+					echo '<tr>';
+					foreach($row2 as $key=>$value) {
+						echo '<td>',$value,'</td>';
+					}
+					echo '</tr>';
+				}
+				echo '</table><br />';
+				echo '<br><a href = "KTCS_admin.php?">Back to Admin Page</a>';
+			}
+			
 		  	mysqli_close($cxn); 
-  
-			echo '<a href = "KTCS_admin.php?">Back to Admin Page</a>';
-      ?>
+        ?>
       <hr>
 
       <footer>
