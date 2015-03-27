@@ -51,7 +51,7 @@
 	<br>
 
     <div class="container">
-      <h2>Available Cars</h2>
+      <h2>Car Booking</h2>
       <?
       	 $host = "localhost";
 		 $user = "admin";
@@ -64,28 +64,10 @@
 		  {
 		  echo "Failed to connect to MySQL: " . mysqli_connect_error();
 		  die();
-		  }   
-		  
-			if(empty($_GET["iDate"])) 
-			{
-				$date = date('Y-m-d', time());
-
-				$query = "SELECT c.VIN, Make, Model, c.Year, Address, LNo
-		  				  FROM Car AS c NATURAL JOIN Location
-		  				  WHERE c.VIN NOT IN (SELECT VIN
-		  									  FROM Car NATURAL JOIN Reservation AS r
-		  									  WHERE (TIMESTAMPDIFF(HOUR, r.Res_Start, '". $date . "') >= 0
-		  									  AND TIMESTAMPDIFF(HOUR, '" . $date . "', r.Res_End) >= 0));";
-			}
-			else 
-			{				
-				$query = "SELECT c.VIN, Make, Model, c.Year, Address, LNo
-		  				  FROM Car AS c NATURAL JOIN Location
-		  				  WHERE c.VIN NOT IN (SELECT VIN
-		  									  FROM Car NATURAL JOIN Reservation AS r
-		  									  WHERE (TIMESTAMPDIFF(HOUR, r.Res_Start, '" . $_GET["iDate"] . "') >= 0
-		  									  AND TIMESTAMPDIFF(HOUR, '" . $_GET["iDate"] . "', r.Res_End) >= 0));";
-			}
+		  } 
+		  	
+		  $query = "INSERT INTO Reservation (Res_Start, Res_End, MIN, LNo, VIN)
+		  			VALUES ('" . $_GET["iStart"] . "','" . $_GET["iEnd"] ."'," . $_GET["MIN"]."," . $_GET["iLNo"].",".$_GET["VIN"].");";
 			
 			$result = mysqli_query($cxn, $query);
 			
@@ -97,49 +79,27 @@
 				{
 					ob_end_clean();
 				}
-				$url = 'KTCS_available.php?MIN='.$_GET['MIN'].'&attempt=1';
+				$url = 'KTCS_comment.php?MIN='.$_GET['MIN'].'&attempt=1';
 				header("Location: $url");
 			}
 			else
 			{
-				/*
-				$query2 = "SELECT * FROM Comment WHERE MIN = " . $_GET["MIN"] . ";";
-				$result = mysqli_query($cxn, $query2);*/
+				$query2 = "SELECT * FROM Reservation WHERE MIN = " . $_GET["MIN"] . ";";
+				$result = mysqli_query($cxn, $query2);
 			
 				echo '<table cellpadding="5" cellspacing="5" class="db-table" border="1">';
 				$column = $result->fetch_fields();
 	
 				echo '<tr>';
-				$num = 0;
-				foreach ($column as $col) 
-				{
-					if ($num != 5)
-						echo '<th>'.$col->name.'</th>';
-					$num++;
+				foreach ($column as $col) {
+					echo '<th>'.$col->name.'</th>';
 				}
 	
 				echo '</tr>';
-				while($row2 = $result->fetch_row() ) 
-				{
+				while($row2 = $result->fetch_row() ) {
 					echo '<tr>';
-					$num = 0;
-					foreach($row2 as $key=>$value) 
-					{						
-						if($num == 0)
-						{
-							if(empty($_GET["iDate"]))
-							{
-								$date = date('Y-m-d', time());
-								echo '<td>','<a href="KTCS_reservation_info.php?MIN='.$_GET['MIN'].'&VIN='.$value.'&iDate='.$date.'&iLNo='.$row2[5].'">',$value,'</a></td>';
-							}
-							else
-							{
-								echo '<td>','<a href="KTCS_reservation_info.php?MIN='.$_GET['MIN'].'&VIN='.$value.'&iDate='.$_GET['iDate'].'&iLNo='.$row2[5].'">',$value,'</a></td>';
-							}
-						}
-						elseif($num != 5)
-							echo '<td>',$value,'</td>';
-						$num++;
+					foreach($row2 as $key=>$value) {
+						echo '<td>',$value,'</td>';
 					}
 					echo '</tr>';
 				}

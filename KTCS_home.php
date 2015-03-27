@@ -95,11 +95,12 @@
           <p><a class="btn btn-default" href="KTCS_comment.php?MIN=<?=$_GET["MIN"];?>" role="button">View details &raquo;</a></p>
         </div>
         <div class="col-md-4">
-          <h2>View Available Cars</h2>
-          <p>Click here to view the rental history of a specific car.</p>
-          <form method="get" action="KTCS_car_history.php">
+          <h2>Available Cars</h2>
+          <p>Click here to view all available cars on a given date.</p>
+          <form method="get" action="KTCS_check_cars.php">
 			  <!--<label for="iVIN" class="sr-only">Vehicle ID</label>-->
-			  <input type="text" id="iDate" name="iDate" class="form-control" style="width:200px" placeholder="Date (yyyy-mm-dd)">
+			  <input type="text" id="iDate" name="iDate" class="form-control" style="width:200px" placeholder="Date (Blank for Today)">
+			  <input type="hidden" id="MIN" name="MIN" value="<?=$_GET["MIN"];?>">
 			  <button class="btn btn-default" style="width:200px" type="submit">Go &raquo;</button>
           </form>
         </div>

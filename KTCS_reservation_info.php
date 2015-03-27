@@ -51,23 +51,18 @@
 	<br>
 
     <div class="container">
-      <h2>Available Cars</h2>
-      <p>To see cars available today, leave the text field blank.</p>
-      <form method="get" action="KTCS_home.php"> 
+      <h2>Book Car</h2>
+      <p>Enter the start and end date for your booking.</p>
+      <form method="get" action="KTCS_book_car.php"> 
       <?
         if(!empty($_GET["attempt"]))
         {
         	echo '<p>Incorrect input. Please try again.</p>';
         }
-      ?>
-			<!-- 
-				Query for location
-				
-			-->
-			
+      ?>			
 			<!--<label for="iDate" class="sr-only">Date (yyyy-mm-dd)</label>-->
-        	<input type="text" id="iStart" name="iStart" class="form-control" placeholder="Start Date (yyyy-mm-dd)" autofocus required>
-        	<input type="text" id="iEnd" name="iEnd" class="form-control" placeholder="End Date (yyyy-mm-dd)" required>
+        	<input type="text" id="iStart" name="iStart" class="form-control" value="<?=$_GET["iDate"];?>"  required>
+        	<input type="text" id="iEnd" name="iEnd" class="form-control" placeholder="End Date (yyyy-mm-dd)" autofocus required>
         	<input type="hidden" id="MIN" name="MIN" value="<?=$_GET["MIN"];?>">
         	<input type="hidden" id="VIN" name="VIN" value="<?=$_GET["VIN"];?>">
 			<input type="hidden" id="iDate" name="iDate" value="<?=$_GET["iDate"];?>">
